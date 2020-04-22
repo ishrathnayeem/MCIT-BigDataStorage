@@ -14,7 +14,18 @@ class ReadandWrite(enrichedList: List[EnrichTrip]) {
   conf.addResource(new Path("/Users/ishrathnayeem/Hadoop/opt/hadoop-2.7.3/etc/cloudera/core-site.xml"))
   conf.addResource(new Path("/Users/ishrathnayeem/Hadoop/opt/hadoop-2.7.3/etc/cloudera/hdfs-site.xml"))
   val hadoop:FileSystem = FileSystem.get(conf)
-  val out = new OutputStreamWriter( hadoop.create( new Path( "/user/fall2019/ishrath/course3project/finalOutput.csv"), false ) )
+
+  val outPutPath = new Path( "/user/fall2019/ishrath/course3project/finalOutput.csv")
+  if (hadoop.exists(outPutPath))
+    hadoop.delete(outPutPath, true)
+
+  val out = new OutputStreamWriter( hadoop.create(outPutPath , false ) )
+
+  //  val out = new OutputStreamWriter( hadoop.create( new Path( "/user/fall2019/ishrath/course3project/finalOutput.csv"), false ) )
+//  if (hadoop.exists(outPutPath))
+//    hadoop.delete(outPutPath, true)
+
+  //val out = new OutputStreamWriter( hadoop.create(outPutPath , false ) )
 
   val csvWriter = new CSVWriter(out)
   val csvHeaderFields = Array("Route Id", "Service Id", "Trip Id", "Trip Head Sign", "Direction Id",

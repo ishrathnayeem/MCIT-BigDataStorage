@@ -22,9 +22,8 @@ object Main extends App{
   val routefile = new BufferedInputStream( hadoop.open( new Path( "/user/fall2019/ishrath/stm/routes.txt") ) )
   val calendarfile = new BufferedInputStream( hadoop.open( new Path( "/user/fall2019/ishrath/stm/calendar.txt") ) )
 
+//----------------------------------------------------------------------------------------------------------------------------->
 
-
-  //========================================================================================
   val tripList= Source.fromInputStream(tripfile).getLines().drop(1) // Trip List
     .map(line => line.split(","))
     .map(a => Trip( Some(a(0).toInt), Some(a(1)),Some(a(2)), Some(a(3)),Some(a(4)), Some(a(5)), Some(a(6)))).toList
